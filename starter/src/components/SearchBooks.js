@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as BooksAPI from '../BooksAPI';
+import Book from "./Book";
 
-const SearchBooks = () => {
+const SearchBooks = ({ shelfBooks }) => {
 
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [query, setQuery] = useState('');
@@ -11,14 +12,25 @@ const SearchBooks = () => {
         const getBooks = async () => {
             if (query.trim().length) {
                 const res = await BooksAPI.search(query, 100);
-                res.length ? setSearchedBooks(res) : setSearchedBooks([]);
+                if (res.length) {
+                    res.forEach((book) => { 
+                        shelfBooks.forEach((shelfBook) =>{
+                            if (book.id === shelfBook.id) {
+                                book['shelf'] = shelfBook.shelf;
+                            }
+                        })
+                    });
+                    setSearchedBooks(res);
+                } else {
+                    setSearchedBooks([]);
+                }
             } else {
                 setSearchedBooks([]);
             }
         }
 
         getBooks();
-    }, [query]);
+    }, [query, shelfBooks]);
 
     return (
         <div className="search-books">
@@ -40,36 +52,7 @@ const SearchBooks = () => {
                     {
                         searchedBooks.map((book) => {
                             return (
-                                <li key={book.id}>
-                                    <div className="book">
-                                        <div className="book-top">
-                                            <div
-                                                className="book-cover"
-                                                style={{
-                                                    width: 128,
-                                                    height: 193,
-                                                    backgroundImage:
-                                                        `url("${book.imageLinks.thumbnail}")`
-                                                }}
-                                            ></div>
-                                            {/* <div className="book-shelf-changer">
-                                                            <select>
-                                                                <option value="none" disabled>
-                                                                    Move to...
-                                                                </option>
-                                                                <option value="currentlyReading">
-                                                                    Currently Reading
-                                                                </option>
-                                                                <option value="wantToRead">Want to Read</option>
-                                                                <option value="read">Read</option>
-                                                                <option value="none">None</option>
-                                                            </select>
-                                                        </div> */}
-                                        </div>
-                                        <div className="book-title">{book.title}</div>
-                                        <div className="book-authors">{book.author}</div>
-                                    </div>
-                                </li>
+                                <Book key={book.id} book={book} />
                             )
                         })
                     }

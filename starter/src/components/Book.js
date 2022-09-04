@@ -1,3 +1,5 @@
+import OptionDropdown from "./OptionDropdown";
+
 const Book = ({ book }) => {
     return (
         <li >
@@ -9,22 +11,10 @@ const Book = ({ book }) => {
                             width: 128,
                             height: 193,
                             backgroundImage:
-                                `url("${book.imageLinks.thumbnail}")`
+                                `url("${book && book.imageLinks && book.imageLinks.thumbnail}")`
                         }}
                     ></div>
-                    <div className="book-shelf-changer">
-                        <select>
-                            <option value="none" disabled>
-                                Move to...
-                            </option>
-                            <option value="currentlyReading">
-                                Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                        </select>
-                    </div>
+                    <OptionDropdown bookReadCategory={book.shelf}/>
                 </div>
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.author}</div>

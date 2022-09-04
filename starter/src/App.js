@@ -25,7 +25,7 @@ function App() {
       }
       />
       <Route exact path='/add' element={
-        <SearchBooks />
+        <SearchBooks shelfBooks={allBooks} />
       }
       />
     </Routes>
