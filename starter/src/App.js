@@ -2,7 +2,7 @@ import "./App.css";
 import { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SearchBooks from "./components/SearchBooks";
-import DisplayBooks from "./components/DisplayBooks";
+import Shelves from "./components/Shelves";
 import * as BooksAPI from './BooksAPI';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   return (
     <Routes>
       <Route exact path="/" element={
-        <DisplayBooks books={allBooks} />
+        <Shelves books={allBooks} />
       }
       />
       <Route exact path='/add' element={
