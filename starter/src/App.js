@@ -7,29 +7,45 @@ import * as BooksAPI from './BooksAPI';
 
 function App() {
 
-  const [allBooks, setBooks] = useState([]);
+	const [allBooks, setBooks] = useState([]);
 
-  useEffect(() => {
-    const getBooks = async () => {
-      const res = await BooksAPI.getAll();
-      setBooks(res);
-    }
+	useEffect(() => {
+		const getBooks = async () => {
+			const res = await BooksAPI.getAll();
+			setBooks(res);
+		}
 
-    getBooks();
-  }, [] );
+		getBooks();
+	}, []);
 
-  return (
-    <Routes>
-      <Route exact path="/" element={
-        <Shelves books={allBooks} />
-      }
-      />
-      <Route exact path='/add' element={
-        <SearchBooks shelfBooks={allBooks} />
-      }
-      />
-    </Routes>
-  )
+	const updateBook = (book, newShelf) => {
+		const updateLocalBook = () => {
+			const idx = allBooks.findIndex((shelfBook) => {
+				return shelfBook.id === book.id;
+			})
+
+			if (idx >= 0) {
+				let tempBooks = [...allBooks];
+				tempBooks[idx].shelf = newShelf;
+				setBooks(tempBooks);
+			}
+		}
+
+		updateLocalBook();
+	}
+
+	return (
+		<Routes>
+			<Route exact path="/" element={
+				<Shelves books={allBooks} onUpdateBook={(book, newShelf) => updateBook(book, newShelf)} />
+			}
+			/>
+			<Route exact path='/add' element={
+				<SearchBooks shelfBooks={allBooks} updateBook={(book, newShelf) => updateBook(book, newShelf)} />
+			}
+			/>
+		</Routes>
+	)
 }
 
 export default App;

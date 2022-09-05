@@ -3,18 +3,35 @@ import { useState, useEffect } from "react";
 import * as BooksAPI from '../BooksAPI';
 import Book from "./Book";
 
-const SearchBooks = ({ shelfBooks }) => {
+const SearchBooks = ({ shelfBooks, updateBook }) => {
 
     const [searchedBooks, setSearchedBooks] = useState([]);
     const [query, setQuery] = useState('');
+
+    const updateThisBook = (book, newShelf) => {
+        const updateLocalBook = () => {
+            const idx = searchedBooks.findIndex((searchedBook) => {
+                return searchedBook.id === book.id;
+            })
+
+            if (idx >= 0) {
+                let tempBooks = [...searchedBooks];
+                tempBooks[idx].shelf = newShelf;
+                updateBook(book, newShelf);
+                setSearchedBooks(tempBooks);
+            }
+        }
+
+        updateLocalBook();
+    }
 
     useEffect(() => {
         const getBooks = async () => {
             if (query.trim().length) {
                 const res = await BooksAPI.search(query, 100);
                 if (res.length) {
-                    res.forEach((book) => { 
-                        shelfBooks.forEach((shelfBook) =>{
+                    res.forEach((book) => {
+                        shelfBooks.forEach((shelfBook) => {
                             if (book.id === shelfBook.id) {
                                 book['shelf'] = shelfBook.shelf;
                             }
@@ -52,7 +69,7 @@ const SearchBooks = ({ shelfBooks }) => {
                     {
                         searchedBooks.map((book) => {
                             return (
-                                <Book key={book.id} book={book} />
+                                <Book key={book.id} book={book} onUpdateLocalBook={(book, newShelf) => updateThisBook(book, newShelf)} />
                             )
                         })
                     }

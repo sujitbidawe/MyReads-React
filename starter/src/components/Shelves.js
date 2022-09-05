@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
 
-const Shelves = ({ books }) => {
+const Shelves = ({ books, onUpdateBook }) => {
+
     const shelves = [{ name: 'Currently Reading', value: 'currentlyReading' }, { name: 'Want To Read', value: 'wantToRead' }, { name: 'Read', value: 'read' }];
 
     return (
@@ -15,7 +16,7 @@ const Shelves = ({ books }) => {
                     {
                         shelves.map((shelf) => {
                             return (
-                                <Shelf key={shelf.value} shelf={shelf} books={books}/>
+                                <Shelf key={shelf.value} shelf={shelf} books={books} updateBook={(book, newShelf) => onUpdateBook(book, newShelf)} />
                             )
                         })
                     }

@@ -1,8 +1,15 @@
-const OptionDropdown = ({ bookReadCategory }) => {
+const OptionDropdown = ({ bookReadCategory, onChangeShelf }) => {
+
+    const changeShelf = (newShelf) => {
+        if (onChangeShelf) {
+            onChangeShelf(newShelf)
+        }
+
+    }
 
     return (
         <div className="book-shelf-changer">
-            <select value={bookReadCategory === undefined ?  'none' : bookReadCategory } onChange={() => {}}>
+            <select value={bookReadCategory === undefined ? 'none' : bookReadCategory} onChange={(event) => { changeShelf(event.target.value) }}>
                 <option value="move" disabled>
                     Move to...
                 </option>

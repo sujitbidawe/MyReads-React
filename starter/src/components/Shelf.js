@@ -1,6 +1,6 @@
 import Book from "./Book";
 
-const Shelf = ({ shelf, books }) => {
+const Shelf = ({ shelf, books, updateBook }) => {
 
     const filteredBooks = books.filter((book) => {
         return book.shelf === shelf.value;
@@ -14,7 +14,7 @@ const Shelf = ({ shelf, books }) => {
                     {
                         filteredBooks.map((book) => {
                             return (
-                                <Book key={book.id} book={book} />
+                                <Book key={book.id} book={book} onUpdateLocalBook={(book, newShelf) => updateBook(book, newShelf)} />
                             )
                         })
                     }
