@@ -2,7 +2,7 @@
   "name": "nd0191-myreads-starter",
   "version": "0.1.0",
   "private": true,
-  "homepage":"http://sujitbidawe.github.io/MyReads-React",
+  "homepage": "http://sujitbidawe.github.io/MyReads-React",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "react-debounce-input": "^3.3.0"
   }
 }
