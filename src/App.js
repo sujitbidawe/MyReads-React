@@ -40,7 +40,7 @@ function App() {
 				<Shelves books={allBooks} onUpdateBook={(book, newShelf) => updateBook(book, newShelf)} />
 			}
 			/>
-			<Route exact path='/add' element={
+			<Route exact path='/search' element={
 				<SearchBooks shelfBooks={allBooks} updateBook={(book, newShelf) => updateBook(book, newShelf)} />
 			}
 			/>

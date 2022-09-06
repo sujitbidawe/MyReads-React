@@ -22,7 +22,7 @@ const Shelves = ({ books, onUpdateBook }) => {
                     }
                 </div>
             </div>
-            <Link to='/add' className="open-search">
+            <Link to='/search' className="open-search">
                 Add a book
             </Link>
         </div>
