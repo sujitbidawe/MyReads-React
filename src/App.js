@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import SearchBooks from "./components/SearchBooks";
 import Shelves from "./components/Shelves";
 import * as BooksAPI from './BooksAPI';
+import NotFound from "./components/NotFound";
 
 function App() {
 
@@ -40,8 +41,12 @@ function App() {
 				<Shelves books={allBooks} onUpdateBook={(book, newShelf) => updateBook(book, newShelf)} />
 			}
 			/>
-			<Route exact path='/add' element={
+			<Route exact path='/search' element={
 				<SearchBooks shelfBooks={allBooks} updateBook={(book, newShelf) => updateBook(book, newShelf)} />
+			}
+			/>
+			<Route path='*' element={
+				<NotFound />
 			}
 			/>
 		</Routes>

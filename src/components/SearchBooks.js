@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as BooksAPI from '../BooksAPI';
 import Book from "./Book";
+import { DebounceInput } from 'react-debounce-input';
+import { PropTypes } from 'prop-types';
 
 const SearchBooks = ({ shelfBooks, updateBook }) => {
 
@@ -56,11 +58,12 @@ const SearchBooks = ({ shelfBooks, updateBook }) => {
                     Close
                 </Link>
                 <div className="search-books-input-wrapper">
-                    <input
+                    <DebounceInput
                         type="text"
                         placeholder="Search by title, author, or ISBN"
                         value={query}
                         onChange={(event) => { setQuery(event.target.value) }}
+                        debounceTimeout={500}
                     />
                 </div>
             </div>
@@ -77,6 +80,11 @@ const SearchBooks = ({ shelfBooks, updateBook }) => {
             </div>
         </div>
     )
+}
+
+SearchBooks.propTypes = {
+    shelfBooks: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
 }
 
 export default SearchBooks;
