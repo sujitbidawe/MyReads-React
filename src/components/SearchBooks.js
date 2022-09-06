@@ -62,7 +62,7 @@ const SearchBooks = ({ shelfBooks, updateBook }) => {
                         placeholder="Search by title, author, or ISBN"
                         value={query}
                         onChange={(event) => { setQuery(event.target.value) }}
-                        debounceTimeout={1000}
+                        debounceTimeout={500}
                     />
                 </div>
             </div>
