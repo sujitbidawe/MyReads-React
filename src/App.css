@@ -173,3 +173,10 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
