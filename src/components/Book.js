@@ -1,5 +1,6 @@
 import OptionDropdown from "./OptionDropdown";
 import * as BooksAPI from '../BooksAPI';
+import { PropTypes } from 'prop-types';
 
 const Book = ({ book, onUpdateLocalBook }) => {
 
@@ -25,13 +26,18 @@ const Book = ({ book, onUpdateLocalBook }) => {
                                 `url("${book && book.imageLinks && book.imageLinks.thumbnail}")`
                         }}
                     ></div>
-                    <OptionDropdown bookReadCategory={book.shelf} onChangeShelf={(newShelf) => updateShelf(newShelf)} />
+                    <OptionDropdown bookReadCategory={book.shelf === undefined ? 'none' : book.shelf} onChangeShelf={(newShelf) => updateShelf(newShelf)} />
                 </div>
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.authors.join(", ")}</div>
             </div>
         </li>
     )
+}
+
+Book.propTypes = {
+    book: PropTypes.object.isRequired,
+    onUpdateLocalBook: PropTypes.func.isRequired
 }
 
 export default Book;

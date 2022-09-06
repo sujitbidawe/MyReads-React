@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import * as BooksAPI from '../BooksAPI';
 import Book from "./Book";
 import { DebounceInput } from 'react-debounce-input';
+import { PropTypes } from 'prop-types';
 
 const SearchBooks = ({ shelfBooks, updateBook }) => {
 
@@ -79,6 +80,11 @@ const SearchBooks = ({ shelfBooks, updateBook }) => {
             </div>
         </div>
     )
+}
+
+SearchBooks.propTypes = {
+    shelfBooks: PropTypes.array.isRequired,
+    updateBook: PropTypes.func.isRequired
 }
 
 export default SearchBooks;

@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types';
+
 const OptionDropdown = ({ bookReadCategory, onChangeShelf }) => {
 
     const changeShelf = (newShelf) => {
@@ -9,7 +11,7 @@ const OptionDropdown = ({ bookReadCategory, onChangeShelf }) => {
 
     return (
         <div className="book-shelf-changer">
-            <select value={bookReadCategory === undefined ? 'none' : bookReadCategory} onChange={(event) => { changeShelf(event.target.value) }}>
+            <select value={bookReadCategory} onChange={(event) => { changeShelf(event.target.value) }}>
                 <option value="move" disabled>
                     Move to...
                 </option>
@@ -22,6 +24,11 @@ const OptionDropdown = ({ bookReadCategory, onChangeShelf }) => {
             </select>
         </div>
     )
+}
+
+OptionDropdown.propTypes = {
+    bookReadCategory: PropTypes.string.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
 }
 
 export default OptionDropdown;
